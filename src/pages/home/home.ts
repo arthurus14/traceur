@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { NavController,AlertController } from 'ionic-angular';
 import { Http, Response, Headers } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable;
+
+import * as Map from '../../models/mapping';
+
 
 
 
@@ -21,8 +24,11 @@ nom : string;
 prenom : string;
 
 
+//gps
+
   constructor(public navCtrl: NavController,
-    public alertCtrl: AlertController,public http: Http
+    public alertCtrl: AlertController,public http: Http,
+    private geolocation: Geolocation
 
   ) {
 

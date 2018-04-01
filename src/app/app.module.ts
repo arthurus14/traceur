@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 
+import { Geolocation } from '@ionic-native/geolocation';
 
 //importation des pages
 import { AboutPage } from '../pages/about/about';
@@ -29,6 +30,7 @@ import { NetworkEngineProvider } from '../providers/network-engine/network-engin
     BrowserModule,
     IonicModule.forRoot(MyApp),
      HttpModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,6 +43,7 @@ import { NetworkEngineProvider } from '../providers/network-engine/network-engin
   ],
   providers: [
     StatusBar,
+    Geolocation ,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     NetworkEngineProvider

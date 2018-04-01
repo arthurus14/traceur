@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Détails</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- prénom et nom doivent être défini -->
+  <div *ngIf = "prenom && nom" id="panel-info">
+  <h2>Détails</h2>
+<p>Bonjour {{ prenom }} {{nom}}</p>
+</div>
+<!-- si il manque premon ou nom -->
+<div *ngIf="!prenom || !nom" id="panel-error">
+<p>Il manque des données</p>
+</div>
+
+</ion-content>

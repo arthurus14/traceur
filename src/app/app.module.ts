@@ -6,12 +6,17 @@ import { HttpModule } from '@angular/http';
 
 import { Geolocation } from '@ionic-native/geolocation';
 
+
 //importation des pages
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { DetailsPage } from '../pages/details/details'; //le nom est didentique à la classe dans le .ts
+import { CreerComptePage } from '../pages/creerCompte/creerCompte';
+import { EspacePersoPage } from '../pages/espacePerso/espacePerso';
+import { MapPage } from '../pages/map/map';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,7 +26,10 @@ import { NetworkEngineProvider } from '../providers/network-engine/network-engin
   declarations: [
     MyApp,
     AboutPage,
+    CreerComptePage,
+    EspacePersoPage,
     ContactPage,
+    MapPage,
     HomePage,
     TabsPage,
     DetailsPage
@@ -36,6 +44,10 @@ import { NetworkEngineProvider } from '../providers/network-engine/network-engin
   entryComponents: [
     MyApp,
     AboutPage,
+    EspacePersoPage,
+    CreerComptePage,
+    ContactPage,
+    MapPage,
     ContactPage,
     HomePage,
     TabsPage,

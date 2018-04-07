@@ -4,23 +4,26 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic! mon application de géolocalisation </h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <ion-item>
-      <ion-label floating>Nom</ion-label>
-      <ion-input [(ngModel)]="nom" type="text"></ion-input>
+<ion-content class="myView">
+
+   <!-- <img src="../../assets/imgs/map.jpg"/> -->
+  <h2 class="text">Gardez un oeil sur vos proches</h2>
+
+  <ion-item class="form">
+      <ion-label floating><ion-icon name="mail"></ion-icon> Mail</ion-label>
+      <ion-input [(ngModel)]="Mail" type="text"></ion-input>
   </ion-item>
 
-  <ion-item>
-      <ion-label floating>Prénom</ion-label>
-      <ion-input [(ngModel)]="prenom" type="text"></ion-input>
+  <ion-item class="form1">
+      <ion-label floating><ion-icon name="lock"></ion-icon> Password</ion-label>
+      <ion-input [(ngModel)]="Password" type="text"></ion-input>
   </ion-item>
-<button  id="envoi" (tap)="showDetails()" ion-button full>envoi</button>
-<button (tap)="serveur(nom,prenom)" ion-button full>HTTP</button>
+<button class="button icon ion-ionic button-positive"  id="envoi" (tap)="showDetails()" ion-button full>connexion</button>
+<button class="creerCompte" (tap)="creerCompte()" ion-button full color="secondary">créer compte</button>
+<!--(tap)="serveur(Mail,Password)" -->
+<!-- <button (tap)="serveur(nom,prenom)" ion-button full>Se connecter</button> -->
+
+<!-- <button ion-button full color="secondary">Créer compte</button> -->
 
 
 

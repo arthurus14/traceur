@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { NavController,AlertController } from 'ionic-angular';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable;
 
-import * as Map from '../../models/mapping';
+//import * as Map from '../../models/mapping';
 
 
 
 
 //importer la page avec laquelle je veux interagir
 import { DetailsPage } from '../details/details';
+
+import { CreerComptePage } from '../creerCompte/creerCompte';
 
 
 @Component({
@@ -27,9 +28,7 @@ prenom : string;
 //gps
 
   constructor(public navCtrl: NavController,
-    public alertCtrl: AlertController,public http: Http,
-    private geolocation: Geolocation
-
+    public alertCtrl: AlertController,public http: Http
   ) {
 
   }
@@ -54,12 +53,24 @@ showDetails(){
   });
 }
 
+creerCompte(){
+  //alert(this.nom+this.prenom);
+//on passe les variable en paramètres
+  this.navCtrl.push(CreerComptePage, {
+    //nom: this.nom,
+    //prenom: this.prenom
+
+  });
+}
+
 serveur(nom,prenom){
+
+/*
   var data = {
     nom: this.nom,
     prenom: this.prenom
   };
-
+*/
 /*$$$$$$$$$$*/
 
 var headers = new Headers();

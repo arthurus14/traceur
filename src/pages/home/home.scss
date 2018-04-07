@@ -1,8 +1,33 @@
 page-home {
-h4{
-  color:red;
+h2{
+  text-align: center;
+  font-family: blacklist;
+  font-size: 40px;
+  margin-top: 40px;
 }
 #envoi{
-margin-top:10px;
+  margin-top:10px;
+}
+.myView{
+  background-color: #65B9FF;
+  //background-image: url('../../assets/imgs/carte.jpg');
+  //background-size: 700px auto;
+  //background-repeat: no-repeat;
+}
+.text{
+  color : white;
+}
+.form{
+  padding-top: 60px;
+  //opacity: 10;
+  background-color: transparent;
+  //opacity: 0.5;
+
+}
+.form1{
+  background-color: transparent;
+}
+.creerCompte{
+  margin-top: 20px;
 }
 }

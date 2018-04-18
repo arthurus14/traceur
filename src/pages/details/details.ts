@@ -20,20 +20,36 @@ public http: Http) {
 
 var lat = (
   this.geolocation.getCurrentPosition().then((resp) => {
-   this.lat = resp.coords.latitude
-   alert(this.lat);
-   return this.lat;
-   // resp.coords.longitude
+   this.lat = resp.coords.latitude;
+
+   //alert(this.lat);
+  return this.lat;
+
   }).catch((error) => {
     console.log('Error getting location', error);
   })
 );
+var lng = (
+  this.geolocation.getCurrentPosition().then((resp) => {
+   this.lng = resp.coords.longitude
+   //alert(this.lng);
+   return this.lng;
+
+  }).catch((error) => {
+    console.log('Error getting location', error);
+  })
+);
+lng.then(function(){
+
+  //alert('ma lat '+Object.values(lat)[1]);
+  alert('ma lng '+Object.values(lng)[1]);
+});
 lat.then(function(){
-  alert('ma lat '+Object.values(lat)[1]);
-  //alert('lat data '+Object.entries(lat)[1])
-  //console.log(Object.entries(lat)[1]);
-  //console.log(Object.values(lat));
-})
+//la latitude est calculée avant la longitude, il faut respecter l'ordre.
+
+  alert('ma lat '+Object.values(lat)[1]+'ma longitude '+Object.values(lng)[1]);
+  //alert('ma lng '+Object.values(lng)[1]);
+});
 
 //essai
 

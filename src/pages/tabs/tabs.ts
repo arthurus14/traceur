@@ -6,6 +6,7 @@ import { HomePage } from '../home/home';
 
 import { MapPage } from '../map/map';
 import { EspacePersoPage } from '../espacePerso/espacePerso';
+import { DetailsPage } from '../details/details';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -17,6 +18,7 @@ export class TabsPage {
   tab3Root = ContactPage;
   tab4Root = MapPage;
   tab5Root = EspacePersoPage;
+  tab6Root = DetailsPage;
 
   constructor() {
 

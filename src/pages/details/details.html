@@ -6,13 +6,17 @@
 
 <ion-content padding>
   <!-- prénom et nom doivent être défini -->
+
+<p name="lat" >latitude {{this.lat}}</p>
+<p name="lng">longitude {{this.lng}}</p>
   <div *ngIf = "prenom && nom" id="panel-info">
   <h2>Détails</h2>
+
 <p>Bonjour {{ prenom }} {{nom}}</p>
 </div>
 <!-- si il manque premon ou nom -->
 <div *ngIf="!prenom || !nom" id="panel-error">
-<p>Il manque des données</p>
+
 </div>
 
 </ion-content>

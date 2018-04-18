@@ -76,8 +76,8 @@ serveur(nom,prenom){
 var headers = new Headers();
       headers.append('Content-Type', 'application/json');
       var body = {
-        nom: this.nom,
-        prenom: this.prenom
+        nom: this.Mail,
+        prenom: this.Password
       };
 
 /*$$$$$$$$$$*/

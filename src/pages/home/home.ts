@@ -72,7 +72,7 @@ serveur(nom,prenom){
   };
 */
 /*$$$$$$$$$$*/
-
+/*
 var headers = new Headers();
       headers.append('Content-Type', 'application/json');
       var body = {
@@ -81,7 +81,7 @@ var headers = new Headers();
       };
 
 /*$$$$$$$$$$*/
-
+/*
 var url = 'http://localhost/geolocalisation/connect.php';
       this.http.post(url, body, {headers: headers})
       .subscribe( (data) =>{
@@ -89,7 +89,7 @@ var url = 'http://localhost/geolocalisation/connect.php';
           console.log(data);
         }
       });
-
+*/
 
 /*
 this.http.get('http://localhost/geolocalisation/connect.php?nom='+this.nom,{data})

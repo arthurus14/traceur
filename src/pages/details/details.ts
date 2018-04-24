@@ -45,11 +45,27 @@ lng.then(function(){
   alert('ma lng '+Object.values(lng)[1]);
 });
 lat.then(function(){
-//la latitude est calculée avant la longitude, il faut respecter l'ordre.
+//la latitude est calculée avant la longitude, il faut respecter l'ordre. serve
 
   alert('ma lat '+Object.values(lat)[1]+'ma longitude '+Object.values(lng)[1]);
   //alert('ma lng '+Object.values(lng)[1]);
+
+  var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        var body = {
+          lat: Object.values(lat)[1],
+          lng: Object.values(lng)[1]
+        };
+  var url = 'http://localhost/geolocalisation/connect.php';
+        http.post(url, body, {headers: headers})
+          .subscribe( (data) =>{
+            if(data){
+              console.log(data);
+              }
+            });
 });
+
+
 
 //essai
 

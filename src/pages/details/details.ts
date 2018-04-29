@@ -17,23 +17,24 @@ lng : any;
     private navParams: NavParams,
   public geolocation : Geolocation,
 public http: Http) {
-
+  var loc = this;
+setInterval(function(){
 var lat = (
-  this.geolocation.getCurrentPosition().then((resp) => {
-   this.lat = resp.coords.latitude;
+  loc.geolocation.getCurrentPosition().then((resp) => {
+   loc.lat = resp.coords.latitude;
 
    //alert(this.lat);
-  return this.lat;
+  return loc.lat;
 
   }).catch((error) => {
     console.log('Error getting location', error);
   })
 );
 var lng = (
-  this.geolocation.getCurrentPosition().then((resp) => {
-   this.lng = resp.coords.longitude
+  loc.geolocation.getCurrentPosition().then((resp) => {
+   loc.lng = resp.coords.longitude
    //alert(this.lng);
-   return this.lng;
+   return loc.lng;
 
   }).catch((error) => {
     console.log('Error getting location', error);
@@ -42,13 +43,16 @@ var lng = (
 lng.then(function(){
 
   //alert('ma lat '+Object.values(lat)[1]);
-  alert('ma lng '+Object.values(lng)[1]);
+  // @ts-ignore
+  //alert('ma lng '+Object.values(lng)[1]);
 });
 lat.then(function(){
 //la latitude est calculée avant la longitude, il faut respecter l'ordre. serve
 
-  alert('ma lat '+Object.values(lat)[1]+'ma longitude '+Object.values(lng)[1]);
+  //alert('ma lat '+Object.values(lat)[1]+'ma longitude '+Object.values(lng)[1]);
   //alert('ma lng '+Object.values(lng)[1]);
+
+
 
   var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -65,7 +69,7 @@ lat.then(function(){
             });
 });
 
-
+}, 15000);
 
 //essai
 

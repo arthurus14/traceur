@@ -1,45 +1,41 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html'
 })
 export class MapPage {
-public items : Array<any> = [];
+public posts : any ;
   constructor(public navCtrl: NavController,public http: Http) {
 ////
+
+var call = this;
+//setInterval(function(){
 function donnees(){
 setInterval(function(){
-
-
-var headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      var body = {
-        mail : "clui1@msn.com"
-      };
-var url = 'http://localhost/geolocalisation/data.php';
-      http.post(url, body, {headers: headers})
-        .subscribe( (data : any) =>{
-          {
-            console.dir(data);
-            //var result = JSON.parse(data);
-            //console.log(result);
-            //this.items = data;
-
-
-            }
-            //this.items = data;
-          });
-
-
-}, 15000);
-
+     http
+     .get('http://localhost/geolocalisation/data.php')
+     .subscribe((data : any) =>
+     {
+        console.log(data._body);
+        call.posts = JSON.parse(data._body);
+     },
+     (error : any) =>
+     {
+        console.dir(error);
+     });
+  }, 15000);
 }
 donnees();
+   //faire une promesse pour l'affichage avec .then()
 
 ////
+//}, 30000);
+
+
 
   }
 

@@ -57,9 +57,9 @@ lat.then(function(){
   var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         var body = {
-          // @ts-ignore
+          //@ts-ignore
           lat: Object.values(lat)[1],
-          // @ts-ignore
+          //@ts-ignore
           lng: Object.values(lng)[1]
         };
   var url = 'http://localhost/geolocalisation/connect.php';

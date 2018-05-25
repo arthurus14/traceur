@@ -9,7 +9,7 @@ import { Http, Headers } from '@angular/http';
   templateUrl: 'details.html'
 })
 export class DetailsPage {
-  //ici on redéclare les variables pour les utiliser
+  //ici on redéclare les variables pour les utilisers
 lat :any;
 lng : any;
 

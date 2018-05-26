@@ -28,7 +28,15 @@ setInterval(function(){
         console.log("latitude "+call.posts[0].lat+" longitude "+call.posts[0].lng);
         var lat = call.posts[0].lat;
         var lng = call.posts[0].lng;
-
+        console.log('tableau de x éléments '+call.posts.length);
+        //boucle coordonnées fonctionne
+        /*
+        for(var i =0; i< call.posts.length; i++){
+          var lat = call.posts[i].lat;
+          var lng = call.posts[i].lng;
+          console.log("lat et lng : "+lat+" "+lng);
+        }
+        */
 //l'appel de la map ne doit pas se refaire à chaque interval
         if(call.map == null) {
 
@@ -41,34 +49,25 @@ setInterval(function(){
           setView: true,
           maxZoom: 18
         }).on('locationfound', () => {
-          let markerGroup = leaflet.featureGroup();
+
+          for(var i =0; i< call.posts.length; i++){
+            let markerGroup = leaflet.featureGroup();
+            var lat = call.posts[i].lat;
+            var lng = call.posts[i].lng;
           let marker: any = leaflet.marker([lat,lng]).on('click', () => {
-            alert('Marker clicked ');
+            alert('Vous avez cliqué !');
 
           })
 
           markerGroup.addLayer(marker);
           call.map.addLayer(markerGroup);
+        }//fin boucle for
           }).on('locationerror', (err) => {
             alert(err.message);
         })
 }else{
-  alert('map déjà chargée');
-  call.map.locate({
-    setView: true,
-    maxZoom: 10 
-  }).on('locationfound', () => {
-    let markerGroup = leaflet.featureGroup();
-    let marker: any = leaflet.marker([lat,lng]).on('click', () => {
-      alert('Marker clicked ');
+  //alert('map déjà chargée');
 
-    })
-
-    markerGroup.addLayer(marker);
-    call.map.addLayer(markerGroup);
-    }).on('locationerror', (err) => {
-      alert(err.message);
-  })
 }
      },
      (error : any) =>

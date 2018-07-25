@@ -5,7 +5,8 @@ import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { SQLite } from '@ionic-native/sqlite';
+import { IonicStorageModule } from '@ionic/storage';
 
 //importation des pages
 import { AboutPage } from '../pages/about/about';
@@ -37,6 +38,7 @@ import { NetworkEngineProvider } from '../providers/network-engine/network-engin
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
      HttpModule
 
   ],
@@ -58,7 +60,8 @@ import { NetworkEngineProvider } from '../providers/network-engine/network-engin
     Geolocation ,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    NetworkEngineProvider
+    NetworkEngineProvider,
+    SQLite
   ]
 })
 export class AppModule {}

@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { Http, Headers } from '@angular/http';
+import { NavController,NavParams } from 'ionic-angular';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import leaflet from 'leaflet';
 
@@ -10,21 +10,23 @@ import leaflet from 'leaflet';
 })
 export class MapPage {
 public posts : any ;
+public log : any;
 //map
 @ViewChild('map') mapContainer: ElementRef;
 map: any;
-  constructor(public navCtrl: NavController,public http: Http) {
+  constructor(public navCtrl: NavController,public http: Http,private navParams: NavParams) {
 
 var call = this;
+var log = navParams.get("log");
 
 function donnees(){
 setInterval(function(){
      http
-     .get('http://localhost/geolocalisation/data.php')
+     .get('http://192.168.1.18/geolocalisation/data.php')
      .subscribe((data : any) =>
      {
         call.posts = JSON.parse(data._body);
-
+        console.log("log params "+log);
         console.log("latitude "+call.posts[0].lat+" longitude "+call.posts[0].lng);
         var lat = call.posts[0].lat;
         var lng = call.posts[0].lng;
@@ -57,7 +59,7 @@ setInterval(function(){
           let marker: any = leaflet.marker([lat,lng]).on('click', () => {
             alert('Vous avez cliqué !');
 
-          })
+          }).bindPopup('nom de la personne')
 
           markerGroup.addLayer(marker);
           call.map.addLayer(markerGroup);

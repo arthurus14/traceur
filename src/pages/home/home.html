@@ -1,3 +1,5 @@
+
+<html ng-app="myApp">
 <ion-header>
   <ion-navbar>
     <ion-title>Home</ion-title>
@@ -7,7 +9,9 @@
 <ion-content class="myView">
 
    <!-- <img src="../../assets/imgs/map.jpg"/> -->
-  <h2 class="text">Gardez un oeil sur vos proches</h2>
+  <h2  class="text">Gardez un oeil sur vos proches</h2>
+
+
 
   <ion-item class="form">
       <ion-label floating><ion-icon name="mail"></ion-icon> Mail</ion-label>
@@ -19,7 +23,7 @@
       <ion-input [(ngModel)]="Password" type="text"></ion-input>
   </ion-item>
 <button class="button icon ion-ionic button-positive"  id="envoi" (tap)="showDetails()" ion-button full>connexion</button>
-<button class="creerCompte" (tap)="creerCompte()" ion-button full color="secondary">créer compte</button>
+<button class="creerCompte" (tap)="creerCompte(Mail,Password)" ion-button full color="secondary">créer compte</button>
 <!--(tap)="serveur(Mail,Password)" -->
  <!-- <button (tap)="serveur(Mail,Password)" ion-button full>Se connecter</button> -->
 
@@ -30,3 +34,4 @@
 
 
 </ion-content>
+</html>

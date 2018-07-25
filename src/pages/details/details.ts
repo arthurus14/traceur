@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { NavController,AlertController,NavParams } from 'ionic-angular';
 
 import { Geolocation } from '@ionic-native/geolocation';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers,RequestOptions } from '@angular/http';
 
+import 'rxjs/add/operator/map';
 @Component({
   selector: 'page-details',
   templateUrl: 'details.html'
@@ -12,6 +13,7 @@ export class DetailsPage {
 //ici on redéclare les variables pour les utilisers
 lat :any;
 lng : any;
+
 
   constructor(public navCtrl: NavController,public alertCtrl: AlertController,
     private navParams: NavParams,
@@ -62,7 +64,7 @@ lat.then(function(){
           //@ts-ignore
           lng: Object.values(lng)[1]
         };
-  var url = 'http://localhost/geolocalisation/connect.php';
+  var url = 'http://192.168.1.18/geolocalisation/connect.php';
         http.post(url, body, {headers: headers})
           .subscribe( (data) =>{
             if(data){

@@ -6,38 +6,23 @@
 
 <ion-content padding>
 <h3>Statut du compte : Freemium</h3>
-<p>Liste des personnes que vous suivez :</p>
-<!-- mettre "segment" pour avoir la photo avec le pseudo
-et un "toggle" pour accepter et refuser
-  -->
 
-  <div >
-  <ion-list >
-    <ion-item *ngFor="let post of posts">
-      <ion-thumbnail item-start>
-        <img src="https://png.pngtree.com/element_origin_min_pic/00/00/05/31574d5cc47355a.jpg">
-      </ion-thumbnail>
-      <ion-label> {{post.mail_suivi}}</ion-label>
-      <ion-toggle  checked="true"></ion-toggle>
-    </ion-item>
-  </ion-list>
-</div>
-
-<p>Liste des personnes qui vous suive :</p>
+<p *ngIf="statut">Liste des personnes qui vous suive :</p>
 <!-- mettre en place la requette sql
   -->
-
+  <!-- créer une autre page : gestion du compte
+    -->
   <div >
   <ion-list >
     <ion-item *ngFor="let post of posts">
       <ion-thumbnail item-start>
         <img src="https://png.pngtree.com/element_origin_min_pic/00/00/05/31574d5cc47355a.jpg">
       </ion-thumbnail>
-      <ion-label> {{post.mail_suivi}}</ion-label>
-      <ion-toggle  checked="true"></ion-toggle>
+      <ion-label> {{post.mail_suiveur}}</ion-label>
+      <ion-toggle [(ngModel)]="post.statut" (ionChange)="change(post.mail_suivi,post.statut,post.mail_suiveur)"></ion-toggle>
     </ion-item>
   </ion-list>
 </div>
 
-<button ion-button full color="danger">supprimer compte</button>
+<button ion-button full color="danger" (tap)="admin()">Administration</button>
 </ion-content>

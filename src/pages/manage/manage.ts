@@ -1,28 +1,24 @@
 import { Component } from '@angular/core';
 //import { NavController } from 'ionic-angular';
-import { NavController,AlertController } from 'ionic-angular';
+
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import { ManagePage } from '../manage/manage';
-
 @Component({
-  selector: 'page-espacePerso',
-  templateUrl: 'espacePerso.html'
+  selector: 'page-manage',
+  templateUrl: 'manage.html'
 })
 
-export class EspacePersoPage {
+export class ManagePage {
   public mail = 'clui1@msn.com';
   public call = this;
 
 
 public statut : boolean = true;
 
-  constructor(public http: Http,public alertCtrl: AlertController,
-  public navCtrl: NavController) {
+  constructor(public http: Http) {
     var mail = 'clui1@msn.com';
     var call = this;
-
 }
 
 ionViewDidLoad(){
@@ -38,7 +34,7 @@ var headers = new Headers();
     mail: mail
 
     };
-    var url = 'http://192.168.1.18/geolocalisation/search.php';
+    var url = 'http://192.168.1.18/geolocalisation/manageSuiveurs.php';
       return  this.http.post(url, body, {headers: headers} )
           .subscribe( (data) =>{
             if(data){
@@ -65,33 +61,6 @@ var headers = new Headers();
 
 }
 
-change(mail_suivi,statut_suivi,mail_suiveur){
-    alert("changement prit en compte "+mail_suivi+" statut : "+statut_suivi);
-    var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        var body = {
-
-        mail_suivi: mail_suivi,
-        statut_suivi : statut_suivi,
-        mail_suiveur : mail_suiveur
-
-        };
-
-        var url = 'http://192.168.1.18/geolocalisation/manage.php';
-          return  this.http.post(url, body, {headers: headers} )
-              .subscribe( (data) =>{
-                if(data){
-                  console.log(data);
-
-            //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-                  alert(data._body);
-                  this.ionViewDidLoad();
-
-                  //fin
-                  }
-                });
-
-      }
 
       suivi(mail_suivi,statut_suivi,mail_suiveur){
           alert("changement prit en compte "+mail_suivi+" statut : "+statut_suivi);
@@ -120,10 +89,4 @@ change(mail_suivi,statut_suivi,mail_suiveur){
                       });
 
             }
-          admin(){
-            this.navCtrl.push(ManagePage, {
-              //nom: this.nom,
-              //prenom: this.prenom
-            });
-          }
 }

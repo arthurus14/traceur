@@ -16,9 +16,26 @@ import { MapPage } from '../map/map';
 export class CreerComptePage {
 
   constructor(public navCtrl: NavController,public http: Http,private navParams: NavParams,
-  private storage: Storage) {
+  private storage: Storage,public alertCtrl: AlertController) {
   }
 
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Bravo',
+      subTitle: 'Votre compte a été crée avec succès',
+      buttons: ['Ok']
+    });
+    alert.present();
+  }
+
+  indispo() {
+    let alert = this.alertCtrl.create({
+      title: 'oups',
+      subTitle: 'cette adresse mail est déjà référencée',
+      buttons: ['Ok']
+    });
+    alert.present();
+    }
 
   signIn(Pseudo,Mail,Password){
   var headers = new Headers();
@@ -49,17 +66,22 @@ export class CreerComptePage {
               console.log("création variable login");
               var log = true;
               console.log(log);
-              this.select(true);
+              //this.select(true);
                 //update log = 1 dans la bdd
-                alert('Votre compte a été crée');
-                /*
+                alert('Votre compte a été crée en bdd');
+
+                  this.presentAlert();
+
+
                this.navCtrl.push(MapPage, {
-                  log: "true" //vérifier si la variable est bien reçue
+                  log: "true", //vérifier si la variable est bien reçue
+                  mail: this.mail
                  });
-              */
+
             }else{
               console.log("logout");
-              alert('Ce mail est déjà enregistré');
+              alert('Ce mail est déjà enregistré en bdd');
+              this.indispo();
               //this.login(false);
               //this.init();//appel fonction
             }

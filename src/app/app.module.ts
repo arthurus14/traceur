@@ -17,6 +17,7 @@ import { DetailsPage } from '../pages/details/details'; //le nom est didentique 
 import { CreerComptePage } from '../pages/creerCompte/creerCompte';
 import { EspacePersoPage } from '../pages/espacePerso/espacePerso';
 import { MapPage } from '../pages/map/map';
+import { ManagePage } from '../pages/manage/manage';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -33,7 +34,8 @@ import { NetworkEngineProvider } from '../providers/network-engine/network-engin
     MapPage,
     HomePage,
     TabsPage,
-    DetailsPage
+    DetailsPage,
+    ManagePage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,8 @@ import { NetworkEngineProvider } from '../providers/network-engine/network-engin
     ContactPage,
     HomePage,
     TabsPage,
-    DetailsPage
+    DetailsPage,
+    ManagePage
   ],
   providers: [
     StatusBar,

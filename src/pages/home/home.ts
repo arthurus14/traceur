@@ -23,9 +23,12 @@ export class HomePage {
 nom : string;
 prenom : string;
 
-onoff : boolean ;
+onoff : boolean;
 
-//gps
+public Mail :any ="";
+public Password : any ="";
+public _body : any="";
+
 
   constructor(public navCtrl: NavController,
     public alertCtrl: AlertController,public http: Http,private navParams: NavParams,
@@ -38,31 +41,43 @@ console.log("login : "+onoff);
 console.log("login : "+bool);
 onoff = bool;
 //return onoff;
+/*
 if(bool == true){
   this.ionViewDidLoad(bool);
-}
-
+  }
+*/
 //faire une session pour concerver la valeur
 }
 
- ionViewDidLoad(bool){
-alert("coucou");
-   this.sqlite.create({
-     name: 'data.db',
-     location: 'default'
-   })
-     .then((db: SQLiteObject) => {
-       db.executeSql('CREATE TABLE IF NOT EXISTS user (login INTEGER  NOT NULL DEFAULT 0, mail TEXT, mdp TEXT)'
-       , {})
-         .then(() => console.log('Executed SQL'))
-         .catch(e => console.log(e));
-         alert('bdd créée');
-     }).catch(e => console.log(e));
-     this.loadData();
+ ionViewDidLoad(){
+//alert("coucou");
+//this.storage.clear();
+// Or to get a key/value pair
+this.storage.get('mail').then((val) => {
+  alert('your loaded log value is : '+val);
+  var d : any = val;
+  return d;
+}).then((d)=>{
+  alert('your loaded log value is : '+d);
+  if(d == null ){
+    alert('mail NON trouvé '+d);
+    console.log('VAL '+d);
+    /*faire un push avec NavParams*/
+  }else{
+    alert('envoi vers Map');
+    this.navCtrl.push(MapPage, {
+      mail: d
+      //prenom: this.prenom
+    });
+  }
+
+});
+
 }
 select(log){
 
 // set a key/value
+
 this.storage.set('login',log);
 alert('storage enregistré '+log);
 this.loadData();
@@ -72,12 +87,25 @@ loadData(){
   this.storage.get('login').then((val) => {
     alert('your loaded log value is : '+val);
     if(val == true){
-      alert('push vers map');
+      alert('push vers map '+val);
       /*faire un push avec NavParams*/
+      /*
+      this.navCtrl.push(MapPage, {
+        mail: this.Mail
+        //prenom: this.prenom
+      });
+      */
     }
   });
 
 }
+
+/*si mail déjà enregistré*/
+
+
+
+/*fin mail déjà enregistré*/
+
 
   message():void{
 
@@ -93,8 +121,7 @@ loadData(){
 showDetails(){
 
   this.navCtrl.push(CreerComptePage, {
-    //nom: this.nom,
-    //prenom: this.prenom
+
   });
 }
 
@@ -109,9 +136,6 @@ var headers = new Headers();
       password: this.Password
 
       };
-      alert("mail "+Object.values(body)[0]+
-      " mdp "+Object.values(body)[1]
-    );
 
 
 var url = 'http://192.168.1.18/geolocalisation/connect.php';
@@ -121,9 +145,9 @@ var url = 'http://192.168.1.18/geolocalisation/connect.php';
             console.log(data);
 
       //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-            alert(data._body);
-            if(JSON.parse(data._body) == "connexion reussie"){
-            //obj = JSON.parse(data);
+            alert("modif _body "+data["_body"]);
+            if(JSON.parse(data["_body"]) == "connexion reussie"){
+
             console.log("data body "+JSON.stringify(data));
               console.log("création variable login");
               var log = true;
@@ -131,28 +155,16 @@ var url = 'http://192.168.1.18/geolocalisation/connect.php';
               this.select(true);
                 //update log = 1 dans la bdd
                 alert('connexion réussie');
-                this.sqlite.create({
-                  name: 'data.db',
-                  location: 'default'
-                })
-                  .then((db: SQLiteObject) => {
-                    db.executeSql('INSERT INTO user (login) VALUES (1) ', {})
-                      .then(() => console.log('Executed SQL'))
-                      .catch(e => console.log(e));
-                      alert('bdd MAJ');
-                  })
-                  .catch(e => console.log(e));
-                /*
-               this.navCtrl.push(MapPage, {
-                  log: "true" //vérifier si la variable est bien reçue
-                 });
-              */
+
+                /*mail*/
+                this.storage.set('login',this.Mail);
+                this.storage.set('mail',this.Mail);
+                this.ionViewDidLoad();
 
             }else{
               console.log("logout");
               alert('connexion échouée');
-              //this.login(false);
-              //this.init();//appel fonction
+
             }
             //fin
             }

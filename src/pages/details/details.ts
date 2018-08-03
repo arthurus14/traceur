@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 export class DetailsPage {
 //ici on redéclare les variables pour les utilisers
 lat :any;
-lng : any ;
+lng : any;
 
 
   constructor(public navCtrl: NavController,public alertCtrl: AlertController,
@@ -76,8 +76,6 @@ lat.then(function(){
 }, 15000);
 
 //essai
-
-
 
 
 

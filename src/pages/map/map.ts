@@ -3,6 +3,7 @@ import { NavController,NavParams } from 'ionic-angular';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import leaflet from 'leaflet';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-map',
@@ -11,13 +12,17 @@ import leaflet from 'leaflet';
 export class MapPage {
 public posts : any ;
 public log : any;
+public mail : any;
 //map
 @ViewChild('map') mapContainer: ElementRef;
 map: any;
-  constructor(public navCtrl: NavController,public http: Http,private navParams: NavParams) {
+  constructor(public navCtrl: NavController,public http: Http,private navParams: NavParams,private storage: Storage) {
 
 var call = this;
 var log = navParams.get("log");
+var mail = navParams.get("mail");
+
+
 
 function donnees(){
 setInterval(function(){
@@ -31,15 +36,9 @@ setInterval(function(){
         var lat = call.posts[0].lat;
         var lng = call.posts[0].lng;
         console.log('tableau de x éléments '+call.posts.length);
-        //boucle coordonnées fonctionne
-        /*
-        for(var i =0; i< call.posts.length; i++){
-          var lat = call.posts[i].lat;
-          var lng = call.posts[i].lng;
-          console.log("lat et lng : "+lat+" "+lng);
-        }
-        */
-//l'appel de la map ne doit pas se refaire à chaque interval
+        alert("votre mail a été transmit pas navParams "+mail);
+        
+
         if(call.map == null) {
 
         call.map = leaflet.map("map").fitWorld();
@@ -68,7 +67,7 @@ setInterval(function(){
             alert(err.message);
         })
 }else{
-  //alert('map déjà chargée');
+
 
 }
      },
@@ -83,32 +82,5 @@ setInterval(function(){
 donnees();
 
   }
-  //Map
-/*
-  ionViewDidEnter() {
-    this.loadmap();
-  }
 
-  loadmap(lat,lng) {
-     this.map = leaflet.map("map").fitWorld();
-     leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-       attributions: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-       maxZoom: 18
-     }).addTo(this.map);
-     this.map.locate({
-       setView: true,
-       maxZoom: 10
-     }).on('locationfound', (e) => {
-       let markerGroup = leaflet.featureGroup();
-       let marker: any = leaflet.marker([e.latitude, e.longitude]).on('click', () => {
-         alert('Marker clicked '+this.lat);
-       })
-       markerGroup.addLayer(marker);
-       this.map.addLayer(markerGroup);
-       }).on('locationerror', (err) => {
-         alert(err.message);
-     })
-
-   }
-*/
 };

@@ -15,8 +15,15 @@ import { MapPage } from '../map/map';
 })
 export class CreerComptePage {
 
+public Pseudo :any;
+public Mail : any;
+public Password : any;
+
   constructor(public navCtrl: NavController,public http: Http,private navParams: NavParams,
   private storage: Storage,public alertCtrl: AlertController) {
+    this.Pseudo="";
+    this.Mail = "";
+    this.Password = "";
   }
 
   presentAlert() {
@@ -47,10 +54,11 @@ export class CreerComptePage {
         //@ts-ignore
       password: this.Password
       };
+      /*
       alert("mail "+Object.values(body)[0]+
       " mdp "+Object.values(body)[1]
     );
-
+    */
 
   var url = 'http://192.168.1.18/geolocalisation/signIn.php';
     return  this.http.post(url, body, {headers: headers} )
@@ -73,9 +81,18 @@ export class CreerComptePage {
                   this.presentAlert();
 
 
+
+                  // set a key/value
+                  this.storage.set('email',this.Mail);
+                  alert('storage enregistré '+this.Mail);
+                    // Or to get a key/value pair
+                  this.storage.get('email').then((val) => {
+                  alert('votre mail va être stocké en localStorage: '+this.Mail);
+                });
+
                this.navCtrl.push(MapPage, {
                   log: "true", //vérifier si la variable est bien reçue
-                  mail: this.mail
+                  mail: this.Mail
                  });
 
             }else{

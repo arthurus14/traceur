@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 //import { NavController } from 'ionic-angular';
-import { NavController,AlertController } from 'ionic-angular';
+import { NavController,AlertController,NavParams } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+
+import { Storage } from '@ionic/storage';
 
 import { ManagePage } from '../manage/manage';
 
@@ -12,30 +14,36 @@ import { ManagePage } from '../manage/manage';
 })
 
 export class EspacePersoPage {
-  public mail = 'clui1@msn.com';
+  //public mail = 'clui1@msn.com';
   public call = this;
+  public eemail : any;
 
 
 public statut : boolean = true;
-
+public Mail : any;
   constructor(public http: Http,public alertCtrl: AlertController,
-  public navCtrl: NavController) {
-    var mail = 'clui1@msn.com';
+  public navCtrl: NavController,private storage: Storage,private navParams: NavParams) {
+    //var mail = 'clui1@msn.com';
     var call = this;
+    var mail = navParams.get("mail");
 
 }
 
 ionViewDidLoad(){
 
-  var mail = 'clui1@msn.com';
-  var call = this;
+var eemail :any;
+ this.storage.get('mail').then((val) => {
+  this.eemail = val ;
+}).then(()=>{
+alert('storage affiche '+this.eemail);
 
-alert('hello');
+//mettre la requête serveur ici
+
 var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     var body = {
 
-    mail: mail
+    mail: this.eemail
 
     };
     var url = 'http://192.168.1.18/geolocalisation/search.php';
@@ -43,7 +51,7 @@ var headers = new Headers();
           .subscribe( (data) =>{
             if(data){
               console.log(data);
-              call.posts = JSON.parse(data._body);
+              this.posts = JSON.parse(data._body);
 
               //var suivi = call.posts[0].mail_suivi;
         //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
@@ -55,12 +63,14 @@ var headers = new Headers();
 
 
                   //alert('Vous ne suivez personne pour le moment');
-
+                  //this.storage.clear();
               }else{
 
               }
             }
           });
+});
+
 
 
 }

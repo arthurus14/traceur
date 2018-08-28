@@ -25,4 +25,25 @@ et un "toggle" pour accepter et refuser
 
 
 <button ion-button full color="danger" (tap)="presentConfirm()">supprimer compte</button>
+
+
+<h3>Envoyez une demande</h3>
+<div >
+  <ion-item >
+    <ion-label floating><ion-icon name="mail"></ion-icon> Mail de la personne</ion-label>
+    <ion-input [(ngModel)]="Mail" type="text"></ion-input>
+  </ion-item>
+</div>
+
+
+<button ion-button full color="secondary" (tap)="envoiDemande(Mail)">envoyer une demande</button>
+
+<h3>Modifier votre avatar</h3>
+<button ion-button full color="secondary" (tap)="openCamera()">Caméra</button>
+<button ion-button full color="secondary" (tap)="openGallery()">Galerie</button>
+
+<!-- <img [src]="myPhoto"/> -->
+
+<p><img src="{{myPhoto}}"/></p>
+
 </ion-content>

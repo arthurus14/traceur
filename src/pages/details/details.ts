@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController,AlertController,NavParams } from 'ionic-angular';
-
+import { Storage } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Http, Headers,RequestOptions } from '@angular/http';
 
+import { HomePage } from '../home/home';
 import 'rxjs/add/operator/map';
 @Component({
   selector: 'page-details',
@@ -18,68 +19,37 @@ lng : any;
   constructor(public navCtrl: NavController,public alertCtrl: AlertController,
     private navParams: NavParams,
   public geolocation : Geolocation,
-public http: Http) {
-  var loc = this;
-setInterval(function(){
-var lat = (
-  loc.geolocation.getCurrentPosition().then((resp) => {
-   loc.lat = resp.coords.latitude;
+public http: Http,private storage: Storage) {
 
-   //alert(this.lat);
-  return loc.lat;
+}
 
-  }).catch((error) => {
-    console.log('Error getting location', error);
-  })
-);
-var lng = (
-  loc.geolocation.getCurrentPosition().then((resp) => {
-   loc.lng = resp.coords.longitude
-   //alert(this.lng);
-   return loc.lng;
+ionViewDidLoad(){
+  let alert = this.alertCtrl.create({
+    title: 'Confirmation',
+    message: 'Voulez-vous vous déconnecter?',
+    buttons: [
+      {
+        text: 'Annuler',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Confirmer',
+        handler: () => {
+          this.storage.clear();
+          this.navCtrl.push(HomePage, {
+        
+          });
 
-  }).catch((error) => {
-    console.log('Error getting location', error);
-  })
-);
-lng.then(function(){
+        }
 
-  //alert('ma lat '+Object.values(lat)[1]);
-  // @ts-ignore
-  //alert('ma lng '+Object.values(lng)[1]);
-});
-lat.then(function(){
-//la latitude est calculée avant la longitude, il faut respecter l'ordre. serve
+      }
+    ]
+  });
+  alert.present();
 
-  //alert('ma lat '+Object.values(lat)[1]+'ma longitude '+Object.values(lng)[1]);
-  //alert('ma lng '+Object.values(lng)[1]);
+  }
 
-
-
-  var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        var body = {
-          //@ts-ignore
-          lat: Object.values(lat)[1],
-          //@ts-ignore
-          lng: Object.values(lng)[1]
-        };
-  var url = 'http://192.168.1.18/geolocalisation/connect.php';
-        http.post(url, body, {headers: headers})
-          .subscribe( (data) =>{
-            if(data){
-              console.log(data);
-              }
-            });
-});
-
-}, 15000);
-
-//essai
-
-
-
-
-
-                    }
 }

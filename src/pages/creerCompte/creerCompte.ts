@@ -15,7 +15,7 @@ import { MapPage } from '../map/map';
 })
 export class CreerComptePage {
 
-public Pseudo :any;
+public Pseudo :any ;
 public Mail : any;
 public Password : any;
 

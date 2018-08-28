@@ -7,7 +7,7 @@ import { HttpModule } from '@angular/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { SQLite } from '@ionic-native/sqlite';
 import { IonicStorageModule } from '@ionic/storage';
-
+import { Camera } from '@ionic-native/camera';
 //importation des pages
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -64,7 +64,8 @@ import { NetworkEngineProvider } from '../providers/network-engine/network-engin
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     NetworkEngineProvider,
-    SQLite
+    SQLite,
+    Camera
   ]
 })
 export class AppModule {}

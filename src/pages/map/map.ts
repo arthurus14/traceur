@@ -4,7 +4,8 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import leaflet from 'leaflet';
 import { Storage } from '@ionic/storage';
-
+import { Geolocation } from '@ionic-native/geolocation';
+//import {NativeGeocoder,NativeGeocoderForwardResult} from "@ionic-native/native-geocoder";
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html'
@@ -13,74 +14,98 @@ export class MapPage {
 public posts : any ;
 public log : any;
 public mail : any;
+public lat :any;
+public lng : any ;
+public post:any;
+public markers:any;
+
 //map
 @ViewChild('map') mapContainer: ElementRef;
 map: any;
-  constructor(public navCtrl: NavController,public http: Http,private navParams: NavParams,private storage: Storage) {
+  constructor(public navCtrl: NavController,public http: Http,private navParams: NavParams,
+    private storage: Storage,
+  public geolocation : Geolocation/*,private nativeGeocoder: NativeGeocoder*/) {
 
 var call = this;
 var log = navParams.get("log");
 var mail = navParams.get("mail");
+var loc = this;
 
 
+var map;
+var markers = [];
+var markersLayer = new leaflet.LayerGroup();
 
-function donnees(){
-setInterval(function(){
-     http
-     .get('http://192.168.1.18/geolocalisation/data.php')
-     .subscribe((data : any) =>
-     {
+var updateMap = function(){
+
+markersLayer.clearLayers();
+
+var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    var body = {
+    //mail: eemail
+    };
+    call.http.get('http://192.168.1.18/geolocalisation/data.php')
+    .subscribe((data : any) =>
+    {
         call.posts = JSON.parse(data._body);
-        console.log("log params "+log);
-        console.log("latitude "+call.posts[0].lat+" longitude "+call.posts[0].lng);
-        var lat = call.posts[0].lat;
-        var lng = call.posts[0].lng;
-        console.log('tableau de x éléments '+call.posts.length);
-        alert("votre mail a été transmit pas navParams "+mail);
-        
 
-        if(call.map == null) {
+        for(var i =0; i< call.posts.length; i++){
 
-        call.map = leaflet.map("map").fitWorld();
-        leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attributions: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-          maxZoom: 18
-        }).addTo(call.map);
-        call.map.locate({
-          setView: true,
-          maxZoom: 18
-        }).on('locationfound', () => {
+          var lat = call.posts[i].lat;
+          var lng = call.posts[i].lng;
+          var pseudo = call.posts[i].mail;
+          var date = call.posts[i].dateHeure;
 
-          for(var i =0; i< call.posts.length; i++){
-            let markerGroup = leaflet.featureGroup();
-            var lat = call.posts[i].lat;
-            var lng = call.posts[i].lng;
-          let marker: any = leaflet.marker([lat,lng]).on('click', () => {
-            alert('Vous avez cliqué !');
 
-          }).bindPopup('nom de la personne')
+        var marker: any = leaflet.marker([lat,lng]).on('click', () => {
+          alert(date);
 
-          markerGroup.addLayer(marker);
-          call.map.addLayer(markerGroup);
-        }//fin boucle for
-          }).on('locationerror', (err) => {
-            alert(err.message);
-        })
-}else{
+        }).bindTooltip(pseudo, {permanent: true, offset: [0, 0]})
 
+        markersLayer.addLayer(marker);
+        call.map.addLayer(markersLayer);
+      }//fin boucle for
+
+    });
 
 }
-     },
-     (error : any) =>
-     {
-        console.dir(error);
-     });
 
-  }, 15000);
+setInterval(function(){
+  updateMap();
+}, 15000);
 
-}
-donnees();
 
   }
 
-};
+
+ionViewDidEnter() {
+
+console.log('enter');
+    this.loadmap();
+}
+ionViewDidLeave(){
+console.log('leave');
+document.getElementById("map").outerHTML="";
+}
+
+  loadmap() {
+
+      this.map = leaflet.map("map").fitWorld() ;
+      leaflet
+        .tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attributions: "www.tphangout.com",
+          maxZoom: 18
+        })
+        .addTo(this.map);
+        this.map.locate({
+          setView: true,
+          maxZoom: 18
+        });
+
+  }
+
+
+
+
+}

@@ -7,6 +7,10 @@ import { Storage } from '@ionic/storage';
 //import * as Map from '../../models/mapping';
 import 'rxjs/add/operator/map';
 //importer la page avec laquelle je veux interagir
+
+//crypto js
+
+import CryptoJS from 'crypto-js';
 import { DetailsPage } from '../details/details';
 
 import { CreerComptePage } from '../creerCompte/creerCompte';
@@ -26,7 +30,7 @@ prenom : string;
 onoff : boolean;
 
 public Mail :any ="";
-public Password : any ="";
+public Password : any = "";
 public _body : any="";
 
 
@@ -50,6 +54,7 @@ if(bool == true){
 }
 
  ionViewDidLoad(){
+
 //alert("coucou");
 //this.storage.clear();
 // Or to get a key/value pair
@@ -126,8 +131,12 @@ showDetails(){
 }
 
   creerCompte(Mail,Password){
+
+
 var headers = new Headers();
       headers.append('Content-Type', 'application/json');
+
+
       var body = {
         //@ts-ignore
       mail: this.Mail,

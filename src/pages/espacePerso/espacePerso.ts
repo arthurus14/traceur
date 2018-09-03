@@ -21,6 +21,7 @@ export class EspacePersoPage {
 
 public statut : boolean = true;
 public Mail : any;
+public posts : any;
   constructor(public http: Http,public alertCtrl: AlertController,
   public navCtrl: NavController,private storage: Storage,private navParams: NavParams) {
     //var mail = 'clui1@msn.com';
@@ -51,13 +52,13 @@ var headers = new Headers();
           .subscribe( (data) =>{
             if(data){
               console.log(data);
-              this.posts = JSON.parse(data._body);
+              this.posts = JSON.parse(data['_body']);
 
               //var suivi = call.posts[0].mail_suivi;
         //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-              alert(data._body);
+              alert(data['_body']);
 
-              if(JSON.parse(data._body) == "undefined"){
+              if(JSON.parse(data['_body']) == "undefined"){
               //obj = JSON.parse(data);
               console.log("data body "+JSON.stringify(data));
 
@@ -94,7 +95,7 @@ change(mail_suivi,statut_suivi,mail_suiveur){
                   console.log(data);
 
             //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-                  alert(data._body);
+                  alert(data['_body']);
                   this.ionViewDidLoad();
 
                   //fin
@@ -122,7 +123,7 @@ change(mail_suivi,statut_suivi,mail_suiveur){
                         console.log(data);
 
                   //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-                        alert(data._body);
+                        alert(data['_body']);
                         this.ionViewDidLoad();
 
                         //fin

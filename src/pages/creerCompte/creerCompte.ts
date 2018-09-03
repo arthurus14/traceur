@@ -67,8 +67,8 @@ public Password : any;
             console.log(data);
 
       //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-            alert(data._body);
-            if(JSON.parse(data._body) == "Votre compte a ete cree"){
+            alert(data['_body']);
+            if(JSON.parse(data['_body']) == "Votre compte a ete cree"){
             //obj = JSON.parse(data);
             console.log("data body "+JSON.stringify(data));
               console.log("création variable login");

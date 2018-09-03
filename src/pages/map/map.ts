@@ -22,6 +22,7 @@ public markers:any;
 //map
 @ViewChild('map') mapContainer: ElementRef;
 map: any;
+
   constructor(public navCtrl: NavController,public http: Http,private navParams: NavParams,
     private storage: Storage,
   public geolocation : Geolocation/*,private nativeGeocoder: NativeGeocoder*/) {
@@ -76,6 +77,61 @@ setInterval(function(){
 }, 15000);
 
 
+function envoi (){
+
+
+   setInterval(function(){
+   var lat = (
+     loc.geolocation.getCurrentPosition().then((resp) => {
+      loc.lat = resp.coords.latitude;
+
+
+     return loc.lat;
+
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     })
+   );
+   var lng = (
+     loc.geolocation.getCurrentPosition().then((resp) => {
+      loc.lng = resp.coords.longitude
+
+      return loc.lng;
+
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     })
+   );
+   lng.then(function(){
+
+   });
+   lat.then(function(){
+
+     var headers = new Headers();
+           headers.append('Content-Type', 'application/json');
+           var body = {
+             //@ts-ignore
+             lat: loc.lat,
+             //@ts-ignore
+             lng: loc.lng,
+
+             mail : mail
+           };
+     var url = 'http://192.168.1.18/geolocalisation/connect.php';
+           loc.http.post(url, body, {headers: headers})
+             .subscribe( (data) =>{
+               if(data){
+                 console.log(data);
+                 }
+               });
+   });
+
+   }, 15000);
+ }
+envoi();
+
+
+
   }
 
 
@@ -83,6 +139,8 @@ ionViewDidEnter() {
 
 console.log('enter');
     this.loadmap();
+
+
 }
 ionViewDidLeave(){
 console.log('leave');
@@ -104,6 +162,9 @@ document.getElementById("map").outerHTML="";
         });
 
   }
+
+
+
 
 
 

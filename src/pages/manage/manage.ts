@@ -6,7 +6,8 @@ import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
+import { FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 @Component({
   selector: 'page-manage',
   templateUrl: 'manage.html'
@@ -21,7 +22,8 @@ export class ManagePage {
 
 public statut : boolean = true;
 
-  constructor(public http: Http,public alertCtrl: AlertController,private storage: Storage,private camera: Camera) {
+  constructor(public http: Http,public alertCtrl: AlertController,
+    private storage: Storage,private camera: Camera,private transfer: FileTransfer, private file: File) {
     var mail = 'clui1@msn.com';
     var call = this;
     var eemail : any;
@@ -51,16 +53,16 @@ ionViewDidLoad(){
             .subscribe( (data) =>{
               if(data){
                 console.log(data);
-                this.posts = JSON.parse(data._body);
+                this.posts = JSON.parse(data['_body']);
 
                 //var suivi = call.posts[0].mail_suivi;
           //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-                alert("données formatées "+data._body);
+                alert("données formatées "+data['_body']);
                 console.log("données formatées façon php "+data['_body']);
                 console.log("données formatées précédé de any "+(<any>data)._body);
 
 
-                if(JSON.parse(data._body) == "undefined"){
+                if(JSON.parse(data['_body']) == "undefined"){
                 //obj = JSON.parse(data);
                 console.log("data body "+JSON.stringify(data));
 
@@ -126,11 +128,12 @@ envoiDemande(Mail){
               if(data){
                 console.log(data);
 
-                console.log("données formatées façon php "+data['_body']);
+                console.log("données formatées façon php  "+data['_body']);
+
                 console.log("données formatées précédé de any "+(<any>data)._body);
 
 
-                if(JSON.parse(data._body) == "ok"){
+                if(JSON.parse(data['_body']) == "ok"){
                   this.demandeAlert();
 
                 }else{
@@ -169,7 +172,7 @@ supp(){
     return  this.http.post(url, body, {headers: headers} )
         .subscribe( (data) =>{
 
-          if(JSON.parse(data._body) == "compte supprime"){
+          if(JSON.parse(data['_body']) == "compte supprime"){
 
             this.showAlert();
           }
@@ -205,7 +208,7 @@ showAlert() {
                         console.log(data);
 
                   //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-                        alert(data._body);
+                        alert(data['_body']);
                         this.ionViewDidLoad();
 
                         //fin
@@ -228,10 +231,32 @@ showAlert() {
              this.myPhoto = 'data:image/jpeg;base64,' + imageData;
 
 
+
             }, (err) => {
              // Handle error
             });
 
+            }
+
+            upload(){
+              /*
+
+              //https://www.youtube.com/watch?v=M1vMRAgt4NM 4 min 22
+              const fileTransfer : FileTransferObject = this.transfer.create();
+              let options: FileUploadOptions = {
+                 fileKey: 'file',
+                 fileName: 'name.jpg',
+                 headers: {}
+
+              }
+
+              fileTransfer.upload('<file path>', '<api endpoint>', options)
+               .then((data) => {
+                 // success
+               }, (err) => {
+                 // error
+               })
+               */
             }
 
 

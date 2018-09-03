@@ -8,6 +8,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { SQLite } from '@ionic-native/sqlite';
 import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera';
+import { FileTransfer} from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 //importation des pages
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -65,7 +67,7 @@ import { NetworkEngineProvider } from '../providers/network-engine/network-engin
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     NetworkEngineProvider,
     SQLite,
-    Camera
+    Camera,FileTransfer, File
   ]
 })
 export class AppModule {}

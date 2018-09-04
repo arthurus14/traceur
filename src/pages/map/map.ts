@@ -6,6 +6,7 @@ import leaflet from 'leaflet';
 import { Storage } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
 //import {NativeGeocoder,NativeGeocoderForwardResult} from "@ionic-native/native-geocoder";
+
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html'
@@ -20,7 +21,8 @@ public post:any;
 public markers:any;
 
 //map
-@ViewChild('map') mapContainer: ElementRef;
+//@ViewChild('map') mapContainer;
+@ViewChild('map') mapElement: ElementRef;
 map: any;
 
   constructor(public navCtrl: NavController,public http: Http,private navParams: NavParams,
@@ -36,6 +38,22 @@ var loc = this;
 var map;
 var markers = [];
 var markersLayer = new leaflet.LayerGroup();
+
+var loadMap = function(){
+  this.map = leaflet.map("map").fitWorld() ;
+  leaflet
+    .tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attributions: "www.tphangout.com",
+      maxZoom: 18
+    })
+    .addTo(this.map);
+    this.map.locate({
+      setView: true,
+      maxZoom: 18
+    });
+
+}
+//loadMap();
 
 var updateMap = function(){
 
@@ -73,7 +91,7 @@ var headers = new Headers();
 }
 
 setInterval(function(){
-  updateMap();
+ updateMap();
 }, 15000);
 
 
@@ -138,15 +156,17 @@ envoi();
 ionViewDidEnter() {
 
 console.log('enter');
-    this.loadmap();
-
+console.log(this.map);
+//this.navCtrl.setRoot(this.navCtrl.getActive().component);
+this.navCtrl.popToRoot();
 
 }
-ionViewDidLeave(){
-console.log('leave');
-document.getElementById("map").outerHTML="";
-}
 
+ionViewDidLoad(){
+  //this.map.clearCache();
+  //document.getElementById('map').outerHTML=('');
+  this.loadmap();
+}
   loadmap() {
 
       this.map = leaflet.map("map").fitWorld() ;
@@ -160,6 +180,7 @@ document.getElementById("map").outerHTML="";
           setView: true,
           maxZoom: 18
         });
+
 
   }
 

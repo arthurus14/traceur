@@ -23,7 +23,7 @@ public http: Http,private storage: Storage) {
 
 }
 
-ionViewDidLoad(){
+ionViewDidEnter(){
   let alert = this.alertCtrl.create({
     title: 'Confirmation',
     message: 'Voulez-vous vous déconnecter?',
@@ -40,7 +40,7 @@ ionViewDidLoad(){
         handler: () => {
           this.storage.clear();
           this.navCtrl.push(HomePage, {
-        
+
           });
 
         }

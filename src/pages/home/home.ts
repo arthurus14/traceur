@@ -16,7 +16,7 @@ import { DetailsPage } from '../details/details';
 import { CreerComptePage } from '../creerCompte/creerCompte';
 
 import { MapPage } from '../map/map';
-
+import { ManagePage } from '../manage/manage';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -28,7 +28,6 @@ nom : string;
 prenom : string;
 
 onoff : boolean;
-
 public Mail :any ="";
 public Password : any = "";
 public _body : any="";
@@ -52,6 +51,30 @@ if(bool == true){
 */
 //faire une session pour concerver la valeur
 }
+
+
+    ionViewWillEnter() {
+
+
+
+      var result = this.storage.get('renvoi').then((val) => {
+
+        var d : any = val;
+        return d;
+      }).then((d)=>{
+
+        console.log('onPageWillEnter : '+d);
+        if(d = 'vrai'){
+
+          this.navCtrl.push(ManagePage);
+        }
+
+      });
+
+
+      }
+
+
 
  ionViewDidLoad(){
 
@@ -94,12 +117,12 @@ loadData(){
     if(val == true){
       alert('push vers map '+val);
       /*faire un push avec NavParams*/
-      /*
+
       this.navCtrl.push(MapPage, {
         mail: this.Mail
         //prenom: this.prenom
       });
-      */
+
     }
   });
 

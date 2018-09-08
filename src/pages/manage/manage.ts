@@ -239,25 +239,50 @@ showAlert() {
             }
 
             upload(){
-              /*
+
 
               //https://www.youtube.com/watch?v=M1vMRAgt4NM 4 min 22
               const fileTransfer : FileTransferObject = this.transfer.create();
+              var random = Math.floor(Math.random()* 100);
               let options: FileUploadOptions = {
-                 fileKey: 'file',
-                 fileName: 'name.jpg',
+                 fileKey: 'photo',
+                 fileName: 'name_'+random+'.jpg', //revoir le nom  user
+                 chunkedMode: false,
+                 httpMethod : 'post',
+                 mimeType: "image/jpeg",
                  headers: {}
 
               }
 
-              fileTransfer.upload('<file path>', '<api endpoint>', options)
+              fileTransfer.upload(this.myPhoto, 'http://192.168.1.18/geolocalisation/upload.php', options)
                .then((data) => {
                  // success
+                 alert('success');
                }, (err) => {
                  // error
+                 alert("error");
                })
-               */
-            }
 
+            }
+        openGallery(){
+          const options: CameraOptions = {
+          quality: 100,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+          saveToPhotoAlbum:false
+        }
+
+        this.camera.getPicture(options).then((imageData) => {
+         // imageData is either a base64 encoded string or a file URI
+         // If it's base64 (DATA_URL):
+         this.myPhoto = 'data:image/jpeg;base64,' + imageData;
+
+
+
+        }, (err) => {
+         // Handle error
+        });
+
+  }
 
 }

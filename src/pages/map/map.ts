@@ -158,9 +158,12 @@ ionViewDidEnter() {
 console.log('enter');
 console.log(this.map);
 //this.navCtrl.setRoot(this.navCtrl.getActive().component);
+
+this.storage.set('renvoi','vrai');
 this.navCtrl.popToRoot();
 
 }
+
 
 ionViewDidLoad(){
   //this.map.clearCache();

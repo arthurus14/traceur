@@ -18,7 +18,7 @@ et un "toggle" pour accepter et refuser
         <img src="https://png.pngtree.com/element_origin_min_pic/00/00/05/31574d5cc47355a.jpg">
       </ion-thumbnail>
       <ion-label > {{post.mail_suivi}}</ion-label>
-      <ion-toggle [(ngModel)] = "post.statut" (ionChange)="suivi(post.mail_suivi,post.statut,post.mail_suiveur)"></ion-toggle>
+      <ion-toggle [(ngModel)] = "post.statuts" (ionChange)="suivi(post.mail_suivi,post.statuts,post.mail_suiveur)"></ion-toggle>
     </ion-item>
   </ion-list>
 </div>

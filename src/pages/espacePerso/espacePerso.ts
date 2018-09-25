@@ -26,9 +26,15 @@ public posts : any;
   public navCtrl: NavController,private storage: Storage,private navParams: NavParams) {
     //var mail = 'clui1@msn.com';
     var call = this;
-    var mail = navParams.get("mail");
+    //var mail = navParams.get("mail");
+   /*
+   var mail = this.storage.get('mail').then((val) => {
+      var email : any = val;
+      return email;
+        })
 
-}
+*/
+      }
 
 ionViewDidLoad(){
 
@@ -36,7 +42,7 @@ var eemail :any;
  this.storage.get('mail').then((val) => {
   this.eemail = val ;
 }).then(()=>{
-alert('storage affiche '+this.eemail);
+//alert('storage affiche '+this.eemail);
 
 //mettre la requête serveur ici
 
@@ -47,7 +53,7 @@ var headers = new Headers();
     mail: this.eemail
 
     };
-    var url = 'http://192.168.1.18/geolocalisation/search.php';
+    var url = 'http://tracker.freeboxos.fr/geolocalisation/search.php';
       return  this.http.post(url, body, {headers: headers} )
           .subscribe( (data) =>{
             if(data){
@@ -88,14 +94,14 @@ change(mail_suivi,statut_suivi,mail_suiveur){
 
         };
 
-        var url = 'http://192.168.1.18/geolocalisation/manage.php';
+        var url = 'http://tracker.freeboxos.fr/geolocalisation/manage.php';
           return  this.http.post(url, body, {headers: headers} )
               .subscribe( (data) =>{
                 if(data){
                   console.log(data);
 
             //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-                  alert(data['_body']);
+                  //alert(data['_body']);
                   this.ionViewDidLoad();
 
                   //fin
@@ -116,14 +122,14 @@ change(mail_suivi,statut_suivi,mail_suiveur){
 
               };
 
-              var url = 'http://192.168.1.18/geolocalisation/manageSuiveurs.php';
+              var url = 'http://tracker.freeboxos.fr/geolocalisation/manageSuiveurs.php';
                 return  this.http.post(url, body, {headers: headers} )
                     .subscribe( (data) =>{
                       if(data){
                         console.log(data);
 
                   //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-                        alert(data['_body']);
+                        //alert(data['_body']);
                         this.ionViewDidLoad();
 
                         //fin

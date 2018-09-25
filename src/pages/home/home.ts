@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 //crypto js
 
 import CryptoJS from 'crypto-js';
-import { DetailsPage } from '../details/details';
+//import { DetailsPage } from '../details/details';
 
 import { CreerComptePage } from '../creerCompte/creerCompte';
 
@@ -55,22 +55,26 @@ if(bool == true){
 
     ionViewWillEnter() {
 
+//n'a pas envoyé mon mail, le récupérer via le storage directememnt sur la page de destination 
+this.storage.get('renvoi').then((val) => {
+  //alert('your loaded log value is : '+val);
+  var d : any = val;
+  return d;
+}).then((d)=>{
+  //alert('your loaded log value is : '+d);
+  if(d == null ){
+    alert('mail NON trouvé '+d);
+    console.log('VAL '+d);
+    /*faire un push avec NavParams*/
+  }else{
+    //alert('envoi vers Map');
+    this.navCtrl.push(ManagePage, {
+      mail: d
+      //prenom: this.prenom
+    });
+  }
 
-
-      var result = this.storage.get('renvoi').then((val) => {
-
-        var d : any = val;
-        return d;
-      }).then((d)=>{
-
-        console.log('onPageWillEnter : '+d);
-        if(d = 'vrai'){
-
-          this.navCtrl.push(ManagePage);
-        }
-
-      });
-
+});
 
       }
 
@@ -78,21 +82,18 @@ if(bool == true){
 
  ionViewDidLoad(){
 
-//alert("coucou");
-//this.storage.clear();
-// Or to get a key/value pair
 this.storage.get('mail').then((val) => {
-  alert('your loaded log value is : '+val);
+  //alert('your loaded log value is : '+val);
   var d : any = val;
   return d;
 }).then((d)=>{
-  alert('your loaded log value is : '+d);
+  //alert('your loaded log value is : '+d);
   if(d == null ){
     alert('mail NON trouvé '+d);
     console.log('VAL '+d);
     /*faire un push avec NavParams*/
   }else{
-    alert('envoi vers Map');
+    //alert('envoi vers Map');
     this.navCtrl.push(MapPage, {
       mail: d
       //prenom: this.prenom
@@ -113,9 +114,9 @@ this.loadData();
 loadData(){
   // Or to get a key/value pair
   this.storage.get('login').then((val) => {
-    alert('your loaded log value is : '+val);
+    //alert('your loaded log value is : '+val);
     if(val == true){
-      alert('push vers map '+val);
+      //alert('push vers map '+val);
       /*faire un push avec NavParams*/
 
       this.navCtrl.push(MapPage, {
@@ -170,14 +171,14 @@ var headers = new Headers();
       };
 
 
-var url = 'http://192.168.1.18/geolocalisation/connect.php';
+var url = 'http://tracker.freeboxos.fr/geolocalisation/connect.php';
     return  this.http.post(url, body, {headers: headers} )
         .subscribe( (data) =>{
           if(data){
             console.log(data);
 
       //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-            alert("modif _body "+data["_body"]);
+            //alert("modif _body "+data["_body"]);
             if(JSON.parse(data["_body"]) == "connexion reussie"){
 
             console.log("data body "+JSON.stringify(data));

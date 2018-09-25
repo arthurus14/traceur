@@ -8,6 +8,9 @@ import 'rxjs/add/operator/map';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+
+
+import { HomePage } from '../home/home';
 @Component({
   selector: 'page-manage',
   templateUrl: 'manage.html'
@@ -22,8 +25,9 @@ export class ManagePage {
 
 public statut : boolean = true;
 
+
   constructor(public http: Http,public alertCtrl: AlertController,
-    private storage: Storage,private camera: Camera,private transfer: FileTransfer, private file: File) {
+    private storage: Storage,private camera: Camera,private transfer: FileTransfer, private file: File,private navParams: NavParams,public navCtrl: NavController) {
     var mail = 'clui1@msn.com';
     var call = this;
     var eemail : any;
@@ -37,7 +41,7 @@ ionViewDidLoad(){
    this.storage.get('mail').then((val) => {
     eemail = val ;
   }).then(()=>{
-  alert('storage affiche '+eemail);
+  //alert('storage affiche '+eemail);
 
   //mettre la requête serveur ici
 
@@ -48,7 +52,7 @@ ionViewDidLoad(){
       mail: eemail
 
       };
-      var url = 'http://192.168.1.18/geolocalisation/manageSuiveurs.php';
+      var url = 'http://tracker.freeboxos.fr/geolocalisation/manageSuiveurs.php';
         return  this.http.post(url, body, {headers: headers} )
             .subscribe( (data) =>{
               if(data){
@@ -57,7 +61,7 @@ ionViewDidLoad(){
 
                 //var suivi = call.posts[0].mail_suivi;
           //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-                alert("données formatées "+data['_body']);
+                //alert("données formatées "+data['_body']);
                 console.log("données formatées façon php "+data['_body']);
                 console.log("données formatées précédé de any "+(<any>data)._body);
 
@@ -109,7 +113,7 @@ envoiDemande(Mail){
    this.storage.get('mail').then((val) => {
     eemail = val ;
   }).then(()=>{
-  alert('storage affiche '+eemail);
+  //alert('storage affiche '+eemail);
 
   //mettre la requête serveur ici
 
@@ -122,7 +126,7 @@ envoiDemande(Mail){
 
       };
 
-      var url = 'http://192.168.1.18/geolocalisation/demandeSuivi.php';
+      var url = 'http://tracker.freeboxos.fr/geolocalisation/demandeSuivi.php';
         return  this.http.post(url, body, {headers: headers} )
             .subscribe( (data) =>{
               if(data){
@@ -163,22 +167,33 @@ notFoundAlert() {
   alert.present();
 }
 supp(){
+ var eemail :any;
+   this.storage.get('mail').then((val) => {
+    eemail = val ;
+  }).then(()=>{
+
   var headers = new Headers();
       headers.append('Content-Type', 'application/json');
   var body = {
-  mail: 'machin'
+  mail: eemail //revoir mail
 };
-  var url = 'http://192.168.1.18/geolocalisation/supprimerCompte.php';
+  var url = 'http://tracker.freeboxos.fr/geolocalisation/supprimerCompte.php';
     return  this.http.post(url, body, {headers: headers} )
         .subscribe( (data) =>{
 
           if(JSON.parse(data['_body']) == "compte supprime"){
 
             this.showAlert();
+            this.storage.clear();
+            this.navCtrl.push(HomePage);   
           }
 
         });
 
+     
+ 
+ });
+   
       //renvoi vers home.ts
 }
 showAlert() {
@@ -201,14 +216,14 @@ showAlert() {
 
               };
 
-              var url = 'http://192.168.1.18/geolocalisation/manageSuiveurs.php';
+              var url = 'http://tracker.freeboxos.fr/geolocalisation/manageSuiveurs.php';
                 return  this.http.post(url, body, {headers: headers} )
                     .subscribe( (data) =>{
                       if(data){
                         console.log(data);
 
                   //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-                        alert(data['_body']);
+                        //alert(data['_body']);
                         this.ionViewDidLoad();
 
                         //fin
@@ -241,20 +256,25 @@ showAlert() {
             upload(){
 
 
-              //https://www.youtube.com/watch?v=M1vMRAgt4NM 4 min 22
+  var eemail :any;
+   this.storage.get('mail').then((val) => {
+    eemail = val ;
+  }).then(()=>{
+  
+    //https://www.youtube.com/watch?v=M1vMRAgt4NM 4 min 22
               const fileTransfer : FileTransferObject = this.transfer.create();
               var random = Math.floor(Math.random()* 100);
               let options: FileUploadOptions = {
                  fileKey: 'photo',
-                 fileName: 'name_'+random+'.jpg', //revoir le nom  user
+                 fileName: eemail+'.jpg', //revoir le nom  user
                  chunkedMode: false,
                  httpMethod : 'post',
                  mimeType: "image/jpeg",
                  headers: {}
-
               }
 
-              fileTransfer.upload(this.myPhoto, 'http://192.168.1.18/geolocalisation/upload.php', options)
+
+              fileTransfer.upload(this.myPhoto, 'http://tracker.freeboxos.fr/geolocalisation/upload.php', options)
                .then((data) => {
                  // success
                  alert('success');
@@ -262,6 +282,11 @@ showAlert() {
                  // error
                  alert("error");
                })
+
+    
+  });
+
+            
 
             }
         openGallery(){

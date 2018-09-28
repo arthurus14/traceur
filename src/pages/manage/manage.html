@@ -6,12 +6,30 @@
 
 <ion-content padding>
 <h3>Statut du compte : Freemium</h3>
-<p>Liste des personnes que vous suivez :</p>
+
 <!-- mettre "segment" pour avoir la photo avec le pseudo
 et un "toggle" pour accepter et refuser
   -->
+  <div>
+  <ion-list no-lines style="border: none;" >
+    <p>Mon compte :</p>
+    <ion-item *ngFor="let item of items">
+      <ion-thumbnail item-start>
+        <!--<img src="post.image">-->
+        <img src="http://tracker.freeboxos.fr/geolocalisation/images/{{item.image}}"/>
+      </ion-thumbnail>
+      <ion-label > {{item.prenom}} </ion-label>
+
+  <ion-thumbnail item-end>
+<button ion-item  (tap)="presentPopover()"><ion-icon name="md-camera"></ion-icon></button>
+  </ion-thumbnail>
+    </ion-item>
+
+  </ion-list>
+  </div>
 
   <div >
+    <p>Liste des personnes que vous suivez :</p>
   <ion-list >
     <ion-item *ngFor="let post of posts">
       <ion-thumbnail item-start>
@@ -38,14 +56,12 @@ et un "toggle" pour accepter et refuser
 
 
 <button ion-button full color="secondary" (tap)="envoiDemande(Mail)">envoyer une demande</button>
-
+<!--
 <h3>Modifier votre avatar</h3>
 <button ion-button full color="secondary" (tap)="openCamera()">Caméra</button>
 <button ion-button full color="secondary" (tap)="openGallery()">Galerie</button>
 <button ion-button full color="secondary" (tap)="upload()">Upload</button>
 
-<!-- <img [src]="myPhoto"/> -->
-
 <p><img src="{{myPhoto}}"/></p>
-
+-->
 </ion-content>

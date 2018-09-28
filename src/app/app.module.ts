@@ -21,6 +21,7 @@ import { EspacePersoPage } from '../pages/espacePerso/espacePerso';
 import { MapPage } from '../pages/map/map';
 import { ManagePage } from '../pages/manage/manage';
 
+import { AvatarPage } from '../pages/avatar/avatar';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -37,7 +38,8 @@ import { NetworkEngineProvider } from '../providers/network-engine/network-engin
     HomePage,
     TabsPage,
     DetailsPage,
-    ManagePage
+    ManagePage,
+    AvatarPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import { NetworkEngineProvider } from '../providers/network-engine/network-engin
     HomePage,
     TabsPage,
     DetailsPage,
-    ManagePage
+    ManagePage,
+    AvatarPage
   ],
   providers: [
     StatusBar,

@@ -18,6 +18,8 @@
       <ion-thumbnail item-start>
         <img src="http://tracker.freeboxos.fr/geolocalisation/images/{{post.image}}"/>
       </ion-thumbnail>
+      <ion-label> {{post.prenom}}</ion-label>
+
       <ion-label> {{post.mail_suiveur}}</ion-label>
       <ion-toggle [(ngModel)]="post.statut" (ionChange)="change(post.mail_suivi,post.statut,post.mail_suiveur)"></ion-toggle>
     </ion-item>

@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Avatar</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+<h3>Modifier votre avatar</h3>
+<button ion-button full color="secondary" (tap)="openCamera()">Caméra</button>
+<button ion-button full color="secondary" (tap)="openGallery()">Galerie</button>
+<button ion-button full color="secondary" (tap)="upload()">Upload</button>
+
+
+<p><img src="{{myPhoto}}"/></p>
+
+</ion-content>

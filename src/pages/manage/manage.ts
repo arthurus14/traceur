@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 //import { NavController } from 'ionic-angular';
-import { NavController,AlertController,NavParams } from 'ionic-angular';
+import { NavController,AlertController,NavParams,PopoverController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
@@ -11,6 +11,7 @@ import { File } from '@ionic-native/file';
 
 
 import { HomePage } from '../home/home';
+import { AvatarPage } from '../avatar/avatar';
 @Component({
   selector: 'page-manage',
   templateUrl: 'manage.html'
@@ -20,6 +21,7 @@ export class ManagePage {
   public mail = 'clui1@msn.com';
   public call = this;
   public  posts : any;
+  public items : any;
   public base64Image:string;
   myPhoto : any;
 
@@ -27,7 +29,7 @@ public statut : boolean = true;
 
 
   constructor(public http: Http,public alertCtrl: AlertController,
-    private storage: Storage,private camera: Camera,private transfer: FileTransfer, private file: File,private navParams: NavParams,public navCtrl: NavController) {
+    private storage: Storage,private camera: Camera,private transfer: FileTransfer, private file: File,private navParams: NavParams,public navCtrl: NavController,public popoverCtrl: PopoverController) {
     var mail = 'clui1@msn.com';
     var call = this;
     var eemail : any;
@@ -73,13 +75,69 @@ ionViewDidLoad(){
 
                     //alert('Vous ne suivez personne pour le moment');
                     //this.storage.clear();
-                }else{
+                }
+                else{
 
                 }
               }
             });
+
+
   });
 
+
+
+}
+
+presentPopover() {
+    let popover = this.popoverCtrl.create(AvatarPage);
+    popover.present({
+      //ev: myEvent
+    });
+  }
+
+ionViewDidEnter(){
+
+  //alert("did enter");
+
+  var eemail :any;
+   this.storage.get('mail').then((val) => {
+    eemail = val ;
+  }).then(()=>{
+  //alert('storage affiche '+eemail);
+
+  //mettre la requête serveur ici
+
+  var headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      var body = {
+
+      mail: eemail
+
+      };
+      var url = 'http://tracker.freeboxos.fr/geolocalisation/persoData.php';
+        return  this.http.post(url, body, {headers: headers} )
+            .subscribe( (data) =>{
+              if(data){
+                console.log(data);
+                this.items = JSON.parse(data['_body']);
+
+                console.log("données formatées façon php "+data['_body']);
+                console.log("données formatées précédé de any "+(<any>data)._body);
+
+
+                if(JSON.parse(data['_body']) == "undefined"){
+                //obj = JSON.parse(data);
+                console.log("data body "+JSON.stringify(data));
+                }
+                else{
+
+                }
+              }
+            });
+
+
+  });
 
 
 }
@@ -185,15 +243,15 @@ supp(){
 
             this.showAlert();
             this.storage.clear();
-            this.navCtrl.push(HomePage);   
+            this.navCtrl.push(HomePage);
           }
 
         });
 
-     
- 
+
+
  });
-   
+
       //renvoi vers home.ts
 }
 showAlert() {
@@ -260,7 +318,7 @@ showAlert() {
    this.storage.get('mail').then((val) => {
     eemail = val ;
   }).then(()=>{
-  
+
     //https://www.youtube.com/watch?v=M1vMRAgt4NM 4 min 22
               const fileTransfer : FileTransferObject = this.transfer.create();
               var random = Math.floor(Math.random()* 100);
@@ -283,10 +341,10 @@ showAlert() {
                  alert("error");
                })
 
-    
+
   });
 
-            
+
 
             }
         openGallery(){

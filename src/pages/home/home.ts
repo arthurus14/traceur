@@ -4,15 +4,8 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Storage } from '@ionic/storage';
-//import * as Map from '../../models/mapping';
 import 'rxjs/add/operator/map';
-//importer la page avec laquelle je veux interagir
-
-//crypto js
-
 import CryptoJS from 'crypto-js';
-//import { DetailsPage } from '../details/details';
-
 import { CreerComptePage } from '../creerCompte/creerCompte';
 
 import { MapPage } from '../map/map';
@@ -22,16 +15,12 @@ import { ManagePage } from '../manage/manage';
   templateUrl: 'home.html'
 })
 export class HomePage {
-//on déclare les variables
-
 nom : string;
 prenom : string;
-
 onoff : boolean;
 public Mail :any ="";
 public Password : any = "";
 public _body : any="";
-
 
   constructor(public navCtrl: NavController,
     public alertCtrl: AlertController,public http: Http,private navParams: NavParams,
@@ -43,34 +32,22 @@ var onoff : boolean  = false;
 console.log("login : "+onoff);
 console.log("login : "+bool);
 onoff = bool;
-//return onoff;
-/*
-if(bool == true){
-  this.ionViewDidLoad(bool);
-  }
-*/
-//faire une session pour concerver la valeur
-}
 
+}
 
     ionViewWillEnter() {
 
-//n'a pas envoyé mon mail, le récupérer via le storage directememnt sur la page de destination 
 this.storage.get('renvoi').then((val) => {
-  //alert('your loaded log value is : '+val);
   var d : any = val;
   return d;
 }).then((d)=>{
-  //alert('your loaded log value is : '+d);
   if(d == null ){
-    alert('mail NON trouvé '+d);
+    //alert('mail NON trouvé '+d);
     console.log('VAL '+d);
-    /*faire un push avec NavParams*/
+
   }else{
-    //alert('envoi vers Map');
     this.navCtrl.push(ManagePage, {
       mail: d
-      //prenom: this.prenom
     });
   }
 
@@ -83,20 +60,15 @@ this.storage.get('renvoi').then((val) => {
  ionViewDidLoad(){
 
 this.storage.get('mail').then((val) => {
-  //alert('your loaded log value is : '+val);
   var d : any = val;
   return d;
 }).then((d)=>{
-  //alert('your loaded log value is : '+d);
   if(d == null ){
-    alert('mail NON trouvé '+d);
+    //alert('mail NON trouvé '+d);
     console.log('VAL '+d);
-    /*faire un push avec NavParams*/
   }else{
-    //alert('envoi vers Map');
     this.navCtrl.push(MapPage, {
       mail: d
-      //prenom: this.prenom
     });
   }
 
@@ -104,38 +76,20 @@ this.storage.get('mail').then((val) => {
 
 }
 select(log){
-
-// set a key/value
-
 this.storage.set('login',log);
 alert('storage enregistré '+log);
 this.loadData();
 }
 loadData(){
-  // Or to get a key/value pair
   this.storage.get('login').then((val) => {
-    //alert('your loaded log value is : '+val);
     if(val == true){
-      //alert('push vers map '+val);
-      /*faire un push avec NavParams*/
-
       this.navCtrl.push(MapPage, {
         mail: this.Mail
-        //prenom: this.prenom
       });
-
     }
   });
 
 }
-
-/*si mail déjà enregistré*/
-
-
-
-/*fin mail déjà enregistré*/
-
-
   message():void{
 
    let alert = this.alertCtrl.create({
@@ -148,9 +102,7 @@ loadData(){
   }
 
 showDetails(){
-
   this.navCtrl.push(CreerComptePage, {
-
   });
 }
 
@@ -162,12 +114,8 @@ var headers = new Headers();
 
 
       var body = {
-        //@ts-ignore
       mail: this.Mail,
-
-        //@ts-ignore
       password: this.Password
-
       };
 
 
@@ -176,9 +124,6 @@ var url = 'http://tracker.freeboxos.fr/geolocalisation/connect.php';
         .subscribe( (data) =>{
           if(data){
             console.log(data);
-
-      //faire un if connexion réussi -> création variable login ok et envoi vers map.ts sinon logout
-            //alert("modif _body "+data["_body"]);
             if(JSON.parse(data["_body"]) == "connexion reussie"){
 
             console.log("data body "+JSON.stringify(data));
@@ -186,23 +131,20 @@ var url = 'http://tracker.freeboxos.fr/geolocalisation/connect.php';
               var log = true;
               console.log(log);
               this.select(true);
-                //update log = 1 dans la bdd
-                alert('connexion réussie');
 
-                /*mail*/
+                //alert('connexion réussie');
                 this.storage.set('login',this.Mail);
                 this.storage.set('mail',this.Mail);
                 this.ionViewDidLoad();
 
             }else{
               console.log("logout");
-              alert('connexion échouée');
+              //alert('connexion échouée');
 
             }
             //fin
             }
           });
-
 
         }
       }

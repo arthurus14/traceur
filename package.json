@@ -9,7 +9,11 @@
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve"
+    "ionic:serve": "ionic-app-scripts serve",
+    "build:development:ios": "ionic cordova build ios",
+    "build:development:android": "ionic cordova build android",
+    "build:production:ios": "ionic cordova build ios --prod --release",
+    "build:production:android": "ionic cordova build android --prod --release"
   },
   "dependencies": {
     "@angular/common": "5.0.0",

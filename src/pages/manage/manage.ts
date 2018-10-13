@@ -18,7 +18,7 @@ import { AvatarPage } from '../avatar/avatar';
 })
 
 export class ManagePage {
-  public mail = 'clui1@msn.com';
+  //public mail = 'clui1@msn.com';
   public call = this;
   public  posts : any;
   public items : any;
@@ -30,7 +30,7 @@ public statut : boolean = true;
 
   constructor(public http: Http,public alertCtrl: AlertController,
     private storage: Storage,private camera: Camera,private transfer: FileTransfer, private file: File,private navParams: NavParams,public navCtrl: NavController,public popoverCtrl: PopoverController) {
-    var mail = 'clui1@msn.com';
+    //var mail = 'clui1@msn.com';
     var call = this;
     var eemail : any;
 
